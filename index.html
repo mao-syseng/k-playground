@@ -6,14 +6,14 @@
     <link rel="icon" href="./favicon.ico" />
     <title>k playground</title>
     <style>
-      * {
+      *:not(a) {
         font-family: monospace;
         font-size: large;
         color: #222323;
         background: #f0f6f0;
       }
       @media (prefers-color-scheme: dark) {
-        * {
+        *:not(a) {
           color: #f0f6f0;
           background: #222323;
         }
@@ -34,13 +34,13 @@
     </style>
   </head>
   <body>
-    <h2>jtye/k playground</h2>
+    <h2>jtye/k playground <a href="https://ktye.github.io/jtye/index.html">docs</a></h2>
     <hr />
     <div class="con">
       <div>
         <fieldset>
           <legend>src</legend>
-          <textarea id="kcode" rows="10" style="width: 99%"></textarea>
+          <textarea id="src" rows="10" style="width: 99%"></textarea>
           <br />
           <button onclick="run()">run</button>
           <pre id="res"></pre>
@@ -81,7 +81,7 @@ $ string print       try[]catch[e;;]
     <details>
       <summary>monadic dyadic triadic</summary>
       <pre>from the ref card you can see functions have up to 3 different variants,
-1. is monadic form, 2. is dyadic form and 3. is triadic form, which just means it takes 1, 2 or 3 variables.
+1. is monadic form, 2. is dyadic form and 3. is triadic form, which just means it takes 1, 2 or 3 parameters.
 monadic: @!10 -> find first in the list
 dyadic: 2@!10 -> find value 2 in list
 triadic: @[!10,5,2] -> update list at index 5, replace with value 2
@@ -105,9 +105,7 @@ resulting in:
     <script src="./k.js"></script>
     <script src="./parse.js"></script>
     <script>
-      function run() {
-        res.textContent = eval(parse(`$(${kcode.value})`));
-      }
+      function run() {res.textContent = eval(parse(`$(${src.value})`))}
     </script>
   </body>
 </html>
