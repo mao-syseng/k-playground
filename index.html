@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="./favicon.ico" />
+    <title>k playground</title>
+    <style>
+      * {
+        font-family: monospace;
+        font-size: large;
+        color: #222323;
+        background: #f0f6f0;
+      }
+      @media (prefers-color-scheme: dark) {
+        * {
+          color: #f0f6f0;
+          background: #222323;
+        }
+      }
+      #res {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        max-width: 100vw;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>jtye/k playground</h2>
+    <hr />
+    <textarea id="kcode" rows="10" style="width: 99%"></textarea>
+    <br />
+    <button onclick="run()">run</button>
+    <pre id="res"></pre>
+    <script src="./k.js"></script>
+    <script src="./parse.js"></script>
+    <script>
+      function run(){res.textContent = eval(parse(`$(${kcode.value})`));}
+    </script>
+  </body>
+</html>
