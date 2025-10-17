@@ -1,2 +1,2 @@
 # learn-k
-k playground + my notes while learning
+jtye/k playground + my notes while learning
