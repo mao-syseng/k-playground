@@ -39,15 +39,24 @@
     <div class="con">
       <div>
         <fieldset>
-          <legend>src</legend>
+          <legend>in</legend>
           <textarea
-            id="src" rows="10" style="width: 99%"
+            id="src"
+            rows="10"
+            style="width: 99%"
             onkeydown="if (event.key === 'Enter' && event.shiftKey) { event.preventDefault(); run(); }"
           ></textarea>
           <br />
           <button onclick="run()">run</button>
           <button onclick="sa()">share</button>
-          <pre id="res"></pre>
+          <fieldset>
+            <legend>out</legend>
+            <pre id="res"></pre>
+          </fieldset>
+          <fieldset>
+            <legend>js</legend>
+            <pre id="js"></pre>
+          </fieldset>
         </fieldset>
       </div>
       <div>
@@ -110,14 +119,33 @@ resulting in:
     <script src="./k.js"></script>
     <script src="./parse.js"></script>
     <script>
-      function gq() {return new URLSearchParams(location.search).get("k") || "";}
-      function sa() {alert(`https://mao-syseng.github.io/k-playground/?k=${src.value}`)}
-      function run() {res.textContent = eval(parse(`$(${src.value})`))}
-      const ks = gq()
-      if(ks !== "" && src.value === "") {
-        src.textContent = ks
-        run()
+      function sq(s) {
+        return encodeURIComponent(s);
       }
+      function gq() {
+        return decodeURIComponent(
+          new URLSearchParams(location.search).get("k") || ""
+        );
+      }
+      function sa() {
+        alert(`https://mao-syseng.github.io/k-playground/?k=${sq(src.value)}`);
+      }
+      function run() {
+        const parsed = parse(src.value);
+        js.textContent = parsed;
+        res.textContent = eval(parsed);
+      }
+      const ks = gq();
+
+      if (ks !== "" && src.value === "") {
+        src.textContent = ks;
+        run();
+      }
+      src.addEventListener("input", () => {
+        const p = new URLSearchParams(location.search);
+        p.set("k", sq(src.value));
+        history.replaceState(null, "", "?" + p.toString());
+      });
     </script>
   </body>
 </html>
