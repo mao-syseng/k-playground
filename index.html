@@ -99,6 +99,9 @@ from the ref card you can see functions have up to 3 different variants,
 monadic: @!10 -> find first in the list
 dyadic: 2@!10 -> find value 2 in list
 triadic: @[!10,5,2] -> update list at index 5, replace with value 2
+these are equivalent
+x[i]+y
+@[x;i;+;y]
       </pre>
       <hr />
     </details>
@@ -113,30 +116,37 @@ resulting in:
 10 11 12 13 14
 15 16 17 18 19
 20 21 22 23 24
+
+the shorthand for matrix generation is 5^!25, this would do the same as above.
+to see where the items are cut you need to use $
       </pre>
       <hr />
+    </details>
+    <details><summary>updating items in a vector</summary>
+      <pre>you can access items in a vector with square brackets and a vector of indices:
+x:0*!9
+i:4 5
+x[i]:1-x[i]</pre>
+<hr>
+    </details>
+    <details>
+      <summary>idiv and mod</summary>
+      <pre>idiv[3;!9]    0 0 0 1 1 1 2 2 2
+mod[3;!9]     1 2 3 1 2 3 1 2 3</pre>
+    <hr>
     </details>
     <script src="./k.js"></script>
     <script src="./parse.js"></script>
     <script>
-      function sq(s) {
-        return encodeURIComponent(s);
-      }
-      function gq() {
-        return decodeURIComponent(
-          new URLSearchParams(location.search).get("k") || ""
-        );
-      }
-      function sa() {
-        alert(`https://mao-syseng.github.io/k-playground/?k=${sq(src.value)}`);
-      }
+      const sq=(s)=>encodeURIComponent(s);
+      const gq=()=> decodeURIComponent(new URLSearchParams(location.search).get("k") || "");
+      function sa(){alert(`https://mao-syseng.github.io/k-playground/?k=${sq(src.value)}`);}
       function run() {
         const parsed = parse(src.value);
         js.textContent = parsed;
         res.textContent = eval(parsed);
       }
       const ks = gq();
-
       if (ks !== "" && src.value === "") {
         src.textContent = ks;
         run();
