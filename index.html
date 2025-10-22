@@ -122,24 +122,38 @@ to see where the items are cut you need to use $
       </pre>
       <hr />
     </details>
-    <details><summary>updating items in a vector</summary>
-      <pre>you can access items in a vector with square brackets and a vector of indices:
+    <details>
+      <summary>updating items in a vector</summary>
+      <pre>
+you can access items in a vector with square brackets and a vector of indices:
 x:0*!9
 i:4 5
-x[i]:1-x[i]</pre>
-<hr>
+x[i]:1-x[i]</pre
+      >
+      <hr />
     </details>
     <details>
       <summary>idiv and mod</summary>
-      <pre>idiv[3;!9]    0 0 0 1 1 1 2 2 2
-mod[3;!9]     1 2 3 1 2 3 1 2 3</pre>
-    <hr>
+      <pre>
+idiv[3;!9]    0 0 0 1 1 1 2 2 2
+mod[3;!9]     1 2 3 1 2 3 1 2 3</pre
+      >
+      <hr />
+    </details>
+    <details>
+      <summary>elementary cellular automata rule 30</summary>
+      <pre>
+v: 0 1 1 1 0     / initial generation
+l:1_v,@v         / left of v, so take the first item and add it to the end of the vector, then remove the first item
+r:|1_(|v),@(|v)  / i could not figure out how to do the right version other ways than this: reverse the result of left, then do another left operation and reverse it back.
+n:mod[2;l+v|r]   / v|r combines both vectors into max of each respective item, then add the left to that. After that we mod 2 it so that we round back to 0, and that is rule 30.
+</pre>
     </details>
     <script src="./k.js"></script>
     <script src="./parse.js"></script>
     <script>
-      const sq=(s)=>encodeURIComponent(s);
-      const gq=()=> decodeURIComponent(new URLSearchParams(location.search).get("k") || "");
+      const sq = (s)=>encodeURIComponent(s);
+      const gq = ()=>decodeURIComponent(new URLSearchParams(location.search).get("k") || "");
       function sa(){alert(`https://mao-syseng.github.io/k-playground/?k=${sq(src.value)}`);}
       function run() {
         const parsed = parse(src.value);
